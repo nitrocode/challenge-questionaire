@@ -1,0 +1,19 @@
+# ignore virtual environments
+env/*
+venv/*
+
+# ignore bower
+bower_components/*
+
+# ignore minified scripts and jquery
+*.min.js
+jquery.js
+
+# ignore compiled python files
+*.pyc
+build/
+dist/
+*.egg-info/
+
+# misc
+*.~

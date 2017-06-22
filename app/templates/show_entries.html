@@ -1,0 +1,88 @@
+<!--  -->
+<html>
+    <head>
+        <title>Test Code</title>
+        <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+        <!--
+        <script type="text/javascript" src="{{ url_for('static', filename='jquery.tabledit.js') }}"></script>
+        -->
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css" />
+        <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css" />
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='logic.js') }}"></script>
+    </head>
+    <body>
+
+    <div id="jsGrid"></div>
+
+    <script>
+        var clients = [
+            {"answer": -2182, "question": "What is 1754 - 3936?", "distractors": [3176, 6529, 6903]},
+            {"answer": 15270675, "question": "What is 3009 * 5075?", "distractors": [3572, 8772, 9415]},
+            {"answer": 600, "question": "What is 9702 - 9102?", "distractors": [7360, 2043, 2982, 1235]},
+            {"answer": 25548960, "question": "What is 6324 * 4040?", "distractors": [3952, 3906, 2694]},
+            {"answer": 20142399, "question": "What is 7269 * 2771?", "distractors": [874]},
+            {"answer": -1044, "question": "What is 4354 - 5398?", "distractors": [3253]},
+            {"answer": -6672, "question": "What is 1129 - 7801?", "distractors": [5432, 7846, 239]},
+            {"answer": -7761, "question": "What is 163 - 7924?", "distractors": [4603]},
+            {"answer": -4429, "question": "What is 2075 - 6504?", "distractors": [1579]},
+            {"answer": 11919, "question": "What is 4749 + 7170?", "distractors": [2825, 1994, 8839, 9094]}
+        ];
+
+        /*
+        var beer;
+        $.getJSON("/questions/", function(json) {
+            beer = json;
+        });*/
+
+        $("#jsGrid").jsGrid({
+            width: "100%",
+            height: "400px",
+
+            inserting: true,
+            editing: true,
+            sorting: true,
+            paging: true,
+
+            autoload: true,
+
+            //data: db,
+            controller: db,
+
+            fields: [
+                { name: "question", type: "text", width: 150, validate: "required" },
+                { name: "answer", type: "number", width: 50 },
+                { name: "distractors", type: "text", width: 200 }
+                /*
+                ,{ name: "Country", type: "select", items: countries, valueField: "Id", textField: "Name" },
+                { name: "Married", type: "checkbox", title: "Is Married", sorting: false },
+                */
+                ,{ type: "control" }
+            ]
+        });
+    </script>
+
+      <!-- {% for q in qdata %}
+        <div>
+            <span class="question">{{ q.question|safe }}</span>
+            <span class="answer">{{ q.answer|safe }}</span>
+        </div>
+      {% endfor %} -->
+
+        <!--
+        <script type="text/javascript">
+        $('#example3').Tabledit({
+            url: 'example.php',
+            editButton: false,
+            deleteButton: false,
+            hideIdentifier: true,
+            columns: {
+                identifier: [0, 'id'],
+                editable: [[2, 'firstname'], [3, 'lastname']]
+            }
+        });
+        </script>
+        -->
+    </body>
+</html>
