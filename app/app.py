@@ -13,7 +13,6 @@ qdata = None
 
 @app.route('/')
 def index():
-    # pdb.set_trace()
     data = get_questions(page=1)
     return render_template('edit.html', qdata=data)
 
@@ -54,15 +53,16 @@ def all_questions(page=None):
     :rtype: dict
     """
     questions = get_questions(page=page)
-    data = {
+    return json.dumps({
         'data': questions,
         'count': len(questions)
-    }
-    return json.dumps(data)
+    })
 
 
-@app.route('/question/', methods=['POST'], defaults={'qid':-1})
-@app.route('/question/<int:qid>', methods=['PUT', 'GET', 'DELETE'])
+@app.route('/question/',
+            methods=['POST'], defaults={'qid':-1})
+@app.route('/question/<int:qid>',
+            methods=['PUT', 'GET', 'DELETE'])
 def question(qid):
     """Get or modify a question.
 
