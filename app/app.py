@@ -15,7 +15,7 @@ qdata = None
 def index():
     # pdb.set_trace()
     data = get_questions(page=1)
-    return render_template('show_entries.html', qdata=data)
+    return render_template('edit.html', qdata=data)
 
 
 def get_questions(page=1):
