@@ -16,6 +16,7 @@
             return $result;
         },
 
+        /** jsGrid required function */
         loadData: function(filter) {
             return $.ajax({
                 type: "GET",
@@ -32,14 +33,18 @@
             });
         },
 
+        /**
+         * Used to simplify insert, update, and delete functions.
+         * @param {dictionary} item - json dict of item with keys: id, answer,
+         * question, distractors
+         * @param {string} type - method type
+         */
         _method_function: function(item, type) {
-            console.log(item);
             // in case an empty value was saved, then removed
             item.distractors = (typeof item.id === 'undefined') ? [] : item.distractors.split(',');
             d = item.distractors;
             for (var i=0; i < d.length; i++)
                 d[i] = parseInt(d[i]);
-            console.log(item);
             // if item id is empty i.e. adding a new question,
             // enter an empty id so Flask can set the item id
             item.id = (typeof item.id === 'undefined') ? "" : item.id;
@@ -52,18 +57,20 @@
             });
         },
 
+        /** jsGrid required function */
         insertItem: function(item) {
             this._method_function(item, 'POST');
         },
 
+        /** jsGrid required function */
         updateItem: function(item) {
             this._method_function(item, 'PUT');
         },
 
+        /** jsGrid required function */
         deleteItem: function(item) {
             this._method_function(item, 'DELETE');
         }
-
     };
 
     window.db = db;
