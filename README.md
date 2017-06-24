@@ -48,3 +48,4 @@ It's possible that there may be stale `pyc` files in the directory that could ca
 * minification for speed
 * sqlite instead of csv
 * app logging
+* sphinx
