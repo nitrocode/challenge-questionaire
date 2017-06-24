@@ -17,7 +17,7 @@ def index():
     return render_template('edit.html', qdata=data)
 
 
-def get_questions(page=1):
+def get_questions(page=None):
     """Get the questions and answers and store in a global variable.
 
     :return: list of JSON documents
@@ -71,28 +71,14 @@ def question(qid):
     :rtype: str
     """
     global qdata
-    questions = get_questions()
+    tmp_qdata = get_questions()
     try:
-        real_id = int(qid)
+        tmp_qdata[int(qid)]
     except:
-        real_id = 0
-    len_questions = len(questions)
-    if real_id >= len_questions:
-        real_id = len_questions - 1
-    # pdb.set_trace()
+        qid = 0
     # return a question as a JSON object
     if request.method == 'GET':
-        # shuffle answers so you have to use math or a calculator
-        #ans = [questions[real_id]['answer']] + \
-        #       questions[real_id]['distractors']
-        #shuffle(ans)
-        #json_data = {
-        #    'q': questions[real_id]['question'],
-        #    'a': ans
-        #}
-        json_data = questions[real_id]
-        # flash('question {} returned'.format(real_id))
-        return json.dumps(json_data)
+        return json.dumps(tmp_qdata[qid])
     # insert/modify the question
     elif request.method in ['PUT', 'POST']:
         data = {
@@ -102,22 +88,18 @@ def question(qid):
         }
         # modify the question
         if request.method == 'PUT':
-            data['id'] = real_id
-            questions[real_id] = data
+            data['id'] = qid
+            tmp_qdata[qid] = data
+            print(tmp_qdata[qid])
         # insert new question
         else:
-            data['id'] = qdata[-1]['id'] + 1
-            questions.append(data)
-        qdata = questions
-        # flash('question {} modified'.format(real_id))
-        # return json.dumps(questions[real_id])
-        return ''
-    # TODO
+            data['id'] = tmp_qdata[-1]['id'] + 1
+            tmp_qdata.append(data)
+    # remove from array
     elif request.method in ['DELETE']:
-        del questions[real_id]
-        return ''
-    else:
-        return '{}'
+        del tmp_qdata[qid]
+    qdata = tmp_qdata
+    return ''
 
 
 if __name__ == '__main__':
