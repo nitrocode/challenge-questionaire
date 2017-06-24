@@ -14,7 +14,7 @@ Quick and dirty proof of concept.
 ## Setup
 
     $ bower install jquery
-    $ cp bower_components/jquery/dist/jquery.js app/static/
+    $ cp bower_components/jquery/dist/jquery.min.js app/static/
     $ virtualenv env
     $ . env/bin/activate
     (env) $ pip install -r requirements.txt
