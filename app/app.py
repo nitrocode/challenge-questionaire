@@ -36,7 +36,7 @@ def get_questions(page=1):
     except:
         return qdata
     try:
-        if page > 0 and page < len(qdata) / page_size:
+        if page > 0 and page <= len(qdata) / page_size:
             return qdata[(page - 1) * page_size : page * page_size]
     except:
         pass
