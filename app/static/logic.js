@@ -39,6 +39,9 @@
             for (var i=0; i < d.length; i++)
                 d[i] = parseInt(d[i]);
             console.log(item);
+            // if item id is empty i.e. adding a new question,
+            // enter an empty id so Flask can set the item id
+            item.id = (typeof item.id === 'undefined') ? "" : item.id;
             return $.ajax({
                 type: type,
                 url: "/question/" + item.id,
