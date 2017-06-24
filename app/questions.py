@@ -1,5 +1,26 @@
 #!/usr/bin/env python
 
+def parse_line(idx, line, delimiter='|'):
+    """Parse a line into question json for the frontend.
+
+    :param int idx: index of line
+    :param str line: content of line
+    :param str delimiter: defaults to '|'
+    :return: json eventually fed to the frontend
+    :rtype: dict
+    """
+    data = line.split(delimiter)
+    # foolishly trust data to convert to int
+    distractors = [int(d.replace('\r\n', ''))
+                   for d in data[2].split(',')]
+    # foolishly trust data to convert to int
+    return {
+        'id': idx,
+        'question': data[0],
+        'answer': int(data[1]),
+        'distractors': distractors
+    }
+
 
 def parse(file_name="code_challenge_question_dump.csv",
           delimiter='|', skip_header=True,
@@ -32,18 +53,7 @@ def parse(file_name="code_challenge_question_dump.csv",
         else:
             headers = f.readline().split(delimiter)
         for idx, line in enumerate(f):
-            data = line.split(delimiter)
-            # foolishly trust data to convert to int
-            distractors = [int(d.replace('\r\n', ''))
-                           for d in data[2].split(',')]
-            # foolishly trust data to convert to int
-            json_doc = {
-                'id': idx,
-                'question': data[0],
-                'answer': int(data[1]),
-                'distractors': distractors
-            }
-            all_data.append(json_doc)
+            all_data.append(parse_line(idx, line))
     return all_data
 
 
