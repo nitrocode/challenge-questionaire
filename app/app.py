@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 import questions
 import json
-from random import shuffle
-from flask import Flask, render_template, request, flash
-import pdb
+from flask import Flask, render_template, request
 
 
+# this has to be defined here
 app = Flask(__name__)
 app.config['DEBUG'] = True
 qdata = None
