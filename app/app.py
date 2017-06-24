@@ -98,7 +98,7 @@ def question(qid):
         data = {
             'answer': request.form['answer'],
             'question': request.form['question'],
-            'distractors': request.form['distractors'].split(',')
+            'distractors': request.form.getlist('distractors[]')
         }
         # modify the question
         if request.method == 'PUT':
