@@ -1,1 +1,15 @@
 .body {}
+
+div#container {
+    text-align: center;
+}
+
+div#prompt {
+    text-align: left;
+    display: inline-block;
+}
+
+a {
+    text-decoration: underline;
+    cursor: pointer;
+}

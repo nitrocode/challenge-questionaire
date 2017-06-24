@@ -12,9 +12,13 @@ qdata = None
 
 
 @app.route('/')
-def index():
-    data = get_questions(page=1)
-    return render_template('edit.html', qdata=data)
+def test():
+    return render_template('test.html')
+
+
+@app.route('/edit')
+def edit():
+    return render_template('edit.html')
 
 
 def get_questions(page=None):

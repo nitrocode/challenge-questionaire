@@ -33,7 +33,6 @@ It's possible that there may be stale `pyc` files in the directory that could ca
 
 ## UI
 
-* take the test
 * data validation
 * answer verification
 * better UI of distractors
