@@ -1,0 +1,81 @@
+<html>
+<head>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="container">
+        <div id="prompt">
+            <h2 id="question"></h2><br />
+            <span id="answers">
+            </span>
+            <br />
+            <span id="msg"></span>
+        </div>
+        <div id="info">
+            <p>Points: <span id="points">0</span> / <span id="total">1</span></p>
+        </div>
+        <div id="nav">
+            <!-- <span id="prev">Previous</span> | -->
+            <a id="next">Next Question</a>
+            <br /><br />
+            <a href="/edit">Edit questions</a>
+        </div>
+    </div>
+    <script>
+        $(function() {
+            var qid = 0;
+            var correct = 0;
+            var total = 1;
+
+            /**
+             * Display question using question ID and Flask end point.
+             */
+            function display_question(id) {
+                $.getJSON("/question/" + id, function(data) {
+                    // debugger;
+                    cor_answer = data.answer;
+                    $('#question').text(data.question);
+                    $('#answers').empty();
+                    var all_answers = data.distractors.concat(data.answer);
+                    // shuffle answers
+                    all_answers.sort(function() { return 0.5 - Math.random() });
+                    $.each(all_answers, function(index, value) {
+                        $('#answers').append("<input type=\"radio\" name=\"answer\" value=\"" + value + "\">" + value + "<br />");
+                        // click once action using unbind()
+                        $("input[name='answer']").unbind().change(function() {
+                            if ($(this).val() == cor_answer) {
+                                $("#msg").text("Correct! Are you good enough to try another?");
+                                $("#points").text(++correct);
+                            } else {
+                                $("#msg").text("Incorrect! You chose " + $(this).val() + " but the answer was " + cor_answer + ".");
+                            }
+                            // remove radio buttons
+                            $("input[name='answer']").remove();
+                        });
+                    });
+                    return data;
+                });
+            }
+
+            // go to the previous question
+            /*
+            $("#prev").click(function() {
+                if (qid > 0)
+                    display_question(--qid);
+                console.log(qid);
+            });
+            */
+
+            $("#next").click(function() {
+                display_question(++qid);
+                $("#total").text(++total);
+                console.log(qid);
+                $("#msg").text("");
+            });
+
+            display_question(qid);
+        });
+    </script>
+</body>
+</html>
