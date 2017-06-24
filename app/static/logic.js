@@ -34,7 +34,8 @@
 
         _method_function: function(item, type) {
             console.log(item);
-            item.distractors = item.distractors.split(',');
+            // in case an empty value was saved, then removed
+            item.distractors = (typeof item.id === 'undefined') ? [] : item.distractors.split(',');
             d = item.distractors;
             for (var i=0; i < d.length; i++)
                 d[i] = parseInt(d[i]);
