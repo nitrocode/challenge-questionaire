@@ -18,37 +18,32 @@
             });
         },
 
-        insertItem: function(item) {
+        _method_function: function(item, type) {
+            console.log(item);
+            item.distractors = item.distractors.split(',');
+            d = item.distractors;
+            for (var i=0; i < d.length; i++)
+                d[i] = parseInt(d[i]);
             console.log(item);
             return $.ajax({
-                type: "POST",
-                url: "/question/",
+                type: type,
+                url: "/question/" + item.id,
                 data: item
             }).then(function(result) {
                 return result;
             });
+        },
+
+        insertItem: function(item) {
+            this._method_function(item, 'POST');
         },
 
         updateItem: function(item) {
-            console.log(item);
-            //item.distractors = item.distractors.split(',');
-            //console.log(item);
-            return $.ajax({
-                type: "PUT",
-                url: "/question/" + item.id,
-                data: item
-            }).then(function(result) {
-                return result;
-            });
+            this._method_function(item, 'PUT');
         },
 
         deleteItem: function(item) {
-            console.log(item);
-            return $.ajax({
-                type: "DELETE",
-                url: "/question/" + item.id,
-                data: item
-            });
+            this._method_function(item, 'DELETE');
         }
 
     };
