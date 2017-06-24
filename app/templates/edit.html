@@ -28,9 +28,15 @@
             controller: db,
 
             fields: [
-                { title: "Question", name: "question", type: "text", width: 150, validate: "required" },
-                { title: "Correct Answer", name: "answer", type: "number", width: 50 },
-                { title: "Other Answers", name: "distractors", type: "text", width: 200 },
+                { title: "Question", name: "question", type: "text",
+                  width: 50, editTemplate: db.editOnEnter
+                },
+                { title: "Correct Answer", name: "answer", type: "number",
+                  width: 50, editTemplate: db.editOnEnter
+                },
+                { title: "Other Answers", name: "distractors", type: "text",
+                  width: 200, editTemplate: db.editOnEnter
+                },
                 { type: "control" }
             ]
         });

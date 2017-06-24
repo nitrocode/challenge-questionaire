@@ -1,6 +1,20 @@
 (function() {
 
     var db = {
+        /**
+         * Enables updating an item by pressing enter.
+         */
+        editOnEnter: function(value) {
+            // https://github.com/tabalinas/jsgrid/issues/243#issuecomment-205171378
+            var $result = jsGrid.fields.number.prototype.editTemplate.call(this, value);
+            $result.on("keydown", function(e) {
+                if(e.which === 13) {
+                    $("#grid").jsGrid("updateItem");
+                    return false;
+                }
+            });
+            return $result;
+        },
 
         loadData: function(filter) {
             return $.ajax({
